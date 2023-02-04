@@ -1,4 +1,5 @@
 import functools
+import tensorflow
 
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
@@ -12,6 +13,10 @@ def termos():
 
     return render_template('termos/termos.html')
 
-@bp.route('/api', methods=(['GET']))
+@bp.route('/api', methods=(['POST']))
 def login():
-    return {"data": "dados"}
+    # dinheiro = request.args.get('dinheiro')
+    path = ("model/model.h5")
+    # model = load_model(path) 
+    dinheiro = request.form.get('dinheiro')
+    return {"data": dinheiro}

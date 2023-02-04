@@ -142,3 +142,4 @@ htmlcov/
 dist/
 build/
 *.egg-info/
+.vercel
