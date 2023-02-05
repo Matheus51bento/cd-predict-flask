@@ -1,11 +1,11 @@
-import joblib
+# import joblib
 from flask import Flask, jsonify, request
 from tensorflow import keras
-import functools
-from tensorflow.keras.models import load_model
+# import functools
+# from tensorflow.keras.models import load_model
 import numpy as np
 from sklearn.preprocessing import MinMaxScaler
-import os
+# import os
 
 app = Flask(__name__)
 model = keras.models.load_model("../cdipredic/model/model.h5")
