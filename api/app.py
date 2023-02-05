@@ -54,3 +54,6 @@ def login():
     predictNextNumber = model.predict(testX[dinheiro:], verbose=1)
 
     return jsonify({"cdi": str(list(predictNextNumber.flatten()))})
+
+if __name__ == "__main__":
+  app.run(debug=True)
