@@ -4,22 +4,23 @@ from tensorflow import keras
 # import functools
 # from tensorflow.keras.models import load_model
 import numpy as np
+from functions import create_dataset, moving_average
 from sklearn.preprocessing import MinMaxScaler
 # import os
 
 app = Flask(__name__)
 model = keras.models.load_model("../cdipredic/model/model.h5")
 
-def moving_average(x, w):
-    return np.convolve(x, np.ones(w), 'valid') / w
+# def moving_average(x, w):
+#     return np.convolve(x, np.ones(w), 'valid') / w
 
-def create_dataset(dataset, look_back=1):
-  dataX, dataY = [], []
-  for i in range(len(dataset)-look_back-1):
-    a = dataset[i:(i+look_back), 0]
-    dataX.append(a)
-    dataY.append(dataset[i + look_back, 0])
-  return np.array(dataX), np.array(dataY)
+# def create_dataset(dataset, look_back=1):
+#   dataX, dataY = [], []
+#   for i in range(len(dataset)-look_back-1):
+#     a = dataset[i:(i+look_back), 0]
+#     dataX.append(a)
+#     dataY.append(dataset[i + look_back, 0])
+#   return np.array(dataX), np.array(dataY)
 
 
 @app.route("/api", methods=["POST"])
