@@ -1,0 +1,8 @@
+tensorflow==2.11.0
+tensorflow-estimator==2.11.0        
+tensorflow-intel==2.11.0
+tensorflow-io-gcs-filesystem==0.30.0
+Flask==2.2.2
+keras==2.11.0
+numpy==1.24.1
+scikit-learn==1.2.1
