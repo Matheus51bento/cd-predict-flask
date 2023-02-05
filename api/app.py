@@ -1,8 +1,5 @@
-# import joblib
 from flask import Flask, jsonify, request
 from tensorflow import keras
-# import functools
-# from tensorflow.keras.models import load_model
 import keras.models
 import numpy as np
 from functions import create_dataset, moving_average
