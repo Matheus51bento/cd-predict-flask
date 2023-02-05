@@ -8,7 +8,7 @@ from sklearn.preprocessing import MinMaxScaler
 import os
 
 app = Flask(__name__)
-model = keras.models.load_model("assets/model.h5")
+model = keras.models.load_model("../cdipredic/model/model.h5")
 
 def moving_average(x, w):
     return np.convolve(x, np.ones(w), 'valid') / w
