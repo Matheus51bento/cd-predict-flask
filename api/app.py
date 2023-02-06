@@ -44,12 +44,30 @@ def login():
     testX, testY = create_dataset(test, look_back)
     testX = np.reshape(testX, (testX.shape[0], 1, testX.shape[1]))
 
-    dinheiro = int(request.form.get('dinheiro'))
-    dinheiro = dinheiro * -1
+    meses = int(request.form.get('meses'))
+    investimento_inicial = float(request.form.get('investimentoInicial'))
+    investimento_mensal = float(request.form.get('investimentoMensal'))
+    rentabilidade_cdi = float(request.form.get('rentabilidadeCDI'))
 
-    predictNextNumber = model.predict(testX[dinheiro:], verbose=1)
+    meses = meses * -1
 
-    return jsonify({"cdi": str(list(predictNextNumber.flatten()))})
+    predictNextNumber = model.predict(testX[meses:], verbose=1)
+    # cdi_numbers = jsonify({ "cdi": str(list(predictNextNumber.flatten())) })
+    cdi_numbers = list(predictNextNumber.flatten())
+    values_per_month = {}
+    for index, rate in enumerate(cdi_numbers):
+      if index == 0:
+        current_month_value = (rate * rentabilidade_cdi) * investimento_inicial
+        values_per_month[f'0{index+1}'] = current_month_value + investimento_inicial
+      elif index == 9:
+        current_month_value = (rate * rentabilidade_cdi) * investimento_mensal
+        values_per_month[f'{index+1}'] = values_per_month[f'0{index}'] + current_month_value
+      else:
+        current_month_value = (rate * rentabilidade_cdi) * investimento_mensal
+        values_per_month[f'0{index+1}'] = values_per_month[f'0{index}'] + current_month_value
+    
+    return jsonify(values_per_month)
+    # return jsonify({"cdi": str(list(predictNextNumber.flatten()))})
 
 if __name__ == "__main__":
   app.run(debug=True)
