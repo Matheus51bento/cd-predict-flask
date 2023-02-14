@@ -55,16 +55,17 @@ def login():
     # cdi_numbers = jsonify({ "cdi": str(list(predictNextNumber.flatten())) })
     cdi_numbers = list(predictNextNumber.flatten())
     values_per_month = {}
+    
+    
     for index, rate in enumerate(cdi_numbers):
       if index == 0:
-        current_month_value = (rate * rentabilidade_cdi) * investimento_inicial
-        values_per_month[f'0{index+1}'] = current_month_value + investimento_inicial
-      elif index == 9:
-        current_month_value = (rate * rentabilidade_cdi) * investimento_mensal
-        values_per_month[f'{index+1}'] = values_per_month[f'0{index}'] + current_month_value
+        current_month_value = investimento_mensal + investimento_inicial
+        current_month_yield = (rate/100 * rentabilidade_cdi) * current_month_value
+        values_per_month[f'{index+1}'] = current_month_yield + current_month_value
       else:
-        current_month_value = (rate * rentabilidade_cdi) * investimento_mensal
-        values_per_month[f'0{index+1}'] = values_per_month[f'0{index}'] + current_month_value
+        current_month_value = investimento_mensal + values_per_month[f'{index}']
+        current_month_yield = (rate/100 * rentabilidade_cdi) * current_month_value
+        values_per_month[f'{index+1}'] = current_month_value + current_month_yield
     
     return jsonify(values_per_month)
     # return jsonify({"cdi": str(list(predictNextNumber.flatten()))})
